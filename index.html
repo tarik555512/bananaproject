@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banana Project | Digital Excellence</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FFE135;
+            --secondary: #34d399;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Живой фон */
+        .blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 225, 53, 0.07) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(60px);
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(60%, 40%); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        /* Навигация */
+        header {
+            padding: 25px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link {
+            background: var(--primary);
+            color: #000;
+            padding: 10px 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .nav-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 225, 53, 0.3);
+        }
+
+        /* Hero Секция */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 30%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 600px;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            margin-bottom: 40px;
+        }
+
+        /* Карточки проекта */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding-bottom: 100px;
+        }
+
+        .card {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            transition: 0.5s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 225, 53, 0.05));
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 225, 53, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Кнопка "Начать" */
+        .main-btn {
+            padding: 20px 45px;
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .main-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        footer {
+            padding: 80px 0 40px;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Анимация при скролле */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s all ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="blob"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">🍌 BANANA</a>
+                <a href="https://t.me/+9_lMCn4Eo4g4NGNi" target="_blank" class="nav-link">ПЕРЕЙТИ В TG</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero container">
+        <h1 class="reveal">Code. Eat.<br>Banana.</h1>
+        <p class="reveal">Мы создаем программные решения будущего с акцентом на чистоту кода и эстетику интерфейсов. Banana Project — это символ качества в мире разработки.</p>
+        <div class="reveal">
+            <a href="https://t.me/+9_lMCn4Eo4g4NGNi" target="_blank" class="main-btn">УЗНАТЬ БОЛЬШЕ</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="grid">
+            <div class="card reveal">
+                <i class="fas fa-layer-group"></i>
+                <h3>Архитектура</h3>
+                <p>Проектируем отказоустойчивые системы, которые легко масштабировать под любые задачи.</p>
+            </div>
+            <div class="card reveal">
+                <i class="fas fa-magic"></i>
+                <h3>UI/UX Дизайн</h3>
+                <p>Делаем интерфейсы, в которые влюбляются с первого взгляда. Минимум лишнего, максимум смысла.</p>
+            </div>
+            <div class="card reveal">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Безопасность</h3>
+                <p>Ваши данные под защитой современных алгоритмов шифрования и лучших практик DevSecOps.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p style="opacity: 0.5; margin-bottom: 10px;">Связь с разработчиками</p>
+            <a href="https://t.me/+9_lMCn4Eo4g4NGNi" target="_blank" class="footer-link">t.me/banana_project</a>
+            <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.3;">&copy; 2026 Banana Project Development. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Функция для появления элементов при скролле
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Запуск при загрузке
+        window.onload = reveal;
+    </script>
+</body>
+</html>
